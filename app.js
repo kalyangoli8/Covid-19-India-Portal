@@ -76,7 +76,7 @@ app.post('/login/', async (request, response) => {
   const {username, password} = request.body
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}';`
   const databaseUser = await database.get(selectUserQuery)
-  if ((databaseUser = undefined)) {
+  if (databaseUser === undefined) {
     response.status(400)
     response.send('Invalid user')
   } else {
@@ -178,12 +178,12 @@ app.put(
 UPDATE
 district
 SET
-district name = '${districtName}',
+district_name = '${districtName}',
 state_id = ${stateId},
 cases = ${cases},
 cured = ${cured},
-active: ${active},
-death: ${deaths},
+active = ${active},
+deaths = ${deaths}
 WHERE
 district_id = ${districtId};
 `
