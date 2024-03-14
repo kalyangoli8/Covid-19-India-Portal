@@ -112,14 +112,14 @@ state;`
 })
 
 app.get('/states/:stateId', authenticateToken, async (request, respone) => {
-  const {stateId} = request.parms
+  const {stateId} = request.params
   const getStatesQuery = `
     SELECT
     *
     FROM
     state
     WHERE
-    stste_id = ${stateId};`
+    state_id = ${stateId};`
   const state = await database.get(getStatesQuery)
   respone.send(convertStateDbObjectToResponseObject(state))
 })
@@ -128,7 +128,7 @@ app.get(
   '/districts/:districtId/',
   authenticateToken,
   async (request, response) => {
-    const {districtId} = request.parms
+    const {districtId} = request.params
     const getDistrictQuery = `
         SELECT
         *
@@ -149,7 +149,7 @@ district (state_id, district_name, cases, cured, active, deaths)
 VALUES
 (${stateId}, '${districtName}', ${cases}, ${cured}, ${active}, ${deaths}));`
   await database.run(postDistrictQuery)
-  response.send('District Successfully Added')
+  response.send('District Successfully Added')
 })
 
 app.delete(
@@ -164,7 +164,7 @@ WHERE
 district_id = ${districtId}
 `
     await database.run(deleteDistrictQuery)
-    response.send('Distriet Removed')
+    response.send('District Removed')
   },
 )
 
